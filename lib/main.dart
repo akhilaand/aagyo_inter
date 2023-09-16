@@ -10,7 +10,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 // Project imports:
 import 'package:aagyo/landingpage/dashboard/auth/views/welcomeScreen.dart';
 import 'package:aagyo/landingpage/dashboard/bottomnavbar.dart';
@@ -24,13 +23,16 @@ const InitializationSettings initializationSettings = InitializationSettings(
   android: AndroidInitializationSettings('@mipmap/ic_launcher'),
 );
 
-void main() async{
+Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp();
-  FirebaseMessagingService messagingService = FirebaseMessagingService();
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  await messagingService.initialize();
+  HttpOverrides.global = MyHttpOverrides();
+
+  if(Platform.isAndroid){
+    FirebaseMessagingService messagingService = FirebaseMessagingService();
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await messagingService.initialize();
+  }
   Get.put(AuthControllerNew());
   Get.put(AuthController());
   // await MyShared_Pref.init();

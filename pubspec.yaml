@@ -38,7 +38,7 @@ dependencies:
   flutter_switch:
   image_picker: ^0.8.9
   shared_preferences: ^2.1.2
-  firebase_core: ^2.14.0
+  firebase_core: ^2.15.1
   firebase_auth: ^4.6.3
   pinput:
   google_sign_in: ^6.1.0
